@@ -13,6 +13,8 @@ yarn add zerotwo
 
 ## Usage
 
+[![Edit example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/egoist/zerotwo/tree/master/example)
+
 ```js
 import zerotwo, { BindStore } from 'zerotwo'
 
