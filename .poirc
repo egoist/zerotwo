@@ -1,0 +1,10 @@
+{
+  "entry": "example/index.js",
+  "webpack": {
+    "resolve": {
+      "alias": {
+        "zerotwo": "../src/index.js"
+      }
+    }
+  }
+}

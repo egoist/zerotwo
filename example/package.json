@@ -1,0 +1,9 @@
+{
+  "//": "this is also only used on codesandbox.io, not by Poi",
+  "name": "example",
+  "main": "index.js",
+  "dependencies": {
+    "zerotwo": "latest",
+    "vue": "^2.5.13"
+  }
+}

@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import zerotwo, { BindStore } from '../src'
+import zerotwo, { BindStore } from 'zerotwo'
 
 const CounterStore = zerotwo({
   state: {
