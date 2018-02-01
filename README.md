@@ -16,6 +16,7 @@ yarn add zerotwo
 [![Edit example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/egoist/zerotwo/tree/master/example)
 
 ```js
+import Vue from 'vue'
 import zerotwo, { BindStore } from 'zerotwo'
 
 const CounterStore = zerotwo({
