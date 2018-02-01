@@ -3,6 +3,8 @@
 
 [![NPM version](https://img.shields.io/npm/v/zerotwo.svg?style=flat)](https://npmjs.com/package/zerotwo) [![NPM downloads](https://img.shields.io/npm/dm/zerotwo.svg?style=flat)](https://npmjs.com/package/zerotwo) [![CircleCI](https://circleci.com/gh/egoist/zerotwo/tree/master.svg?style=shield)](https://circleci.com/gh/egoist/zerotwo/tree/master)  [![donate](https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&style=flat)](https://github.com/egoist/donate) [![chat](https://img.shields.io/badge/chat-on%20discord-7289DA.svg?style=flat)](https://chat.egoist.moe)
 
+Partially inspired by mobx-state-tree and unistore.
+
 ## Install
 
 ```bash
