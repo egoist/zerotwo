@@ -41,6 +41,8 @@ new Vue({
 })
 ```
 
+`BindStore` is unnecessary if you don't want to access `this.$store`.
+
 ## Concepts
 
 __state__
