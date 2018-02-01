@@ -1,0 +1,10 @@
+{
+  "format": ["cjs", "umd", "es", "umd-min"],
+  "exports": "named",
+  "sizeLimit": {
+    "umd-min": "500b"
+  },
+  "global": {
+    "vue": "Vue"
+  }
+}

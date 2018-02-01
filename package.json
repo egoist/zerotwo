@@ -1,0 +1,61 @@
+{
+  "name": "zerotwo",
+  "version": "0.0.0",
+  "description": "zerotwo, manage app state like it's nothing.",
+  "repository": {
+    "url": "egoist/zerotwo",
+    "type": "git"
+  },
+  "main": "dist/zerotwo.cjs.js",
+  "module": "dist/zerotwo.es.js",
+  "unpkg": "dist/zerotwo.min.js",
+  "cdn": "dist/zerotwo.min.js",
+  "jsdevlir": "dist/zerotwo.min.js",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "npm run lint && tyu",
+    "lint": "xo",
+    "prepublishOnly": "npm run build",
+    "build": "bili",
+    "postinstall": "node -e \"console.log('\\u001b[35m\\u001b[1mLove zerotwo? You can now donate to support the author:\\u001b[22m\\u001b[39m\\n> \\u001b[34mhttps://patreon.com/egoist\\u001b[0m')\""
+  },
+  "author": "egoist <0x142857@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@vue/test-utils": "^1.0.0-beta.11",
+    "babel-preset-vue-app": "^2.0.0",
+    "bili": "^2.2.6",
+    "eslint-config-rem": "^3.0.0",
+    "poi": "^9.6.13",
+    "tyu": "^1.0.5",
+    "vue": "^2.5.13",
+    "vue-template-compiler": "^2.5.13",
+    "xo": "^0.18.0"
+  },
+  "xo": {
+    "extends": "rem",
+    "envs": [
+      "jest"
+    ],
+    "rules": {
+      "guard-for-in": "off"
+    },
+    "ignores": [
+      "example/**"
+    ]
+  },
+  "keywords": [
+    "vue",
+    "vuex",
+    "state",
+    "management",
+    "simple",
+    "redux",
+    "data",
+    "reactive",
+    "store"
+  ]
+}
