@@ -1,6 +1,6 @@
 {
   "name": "zerotwo",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "zerotwo, manage app state like it's nothing.",
   "repository": {
     "url": "egoist/zerotwo",
