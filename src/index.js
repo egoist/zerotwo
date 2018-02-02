@@ -2,26 +2,33 @@ import Vue from 'vue'
 import assign from 'nano-assign'
 
 const exists = (obj, key) => {
-  if (Object.prototype.hasOwnProperty.call(obj, key)) {
+  if (
+    process.env.NODE_ENV !== 'production' &&
+    Object.prototype.hasOwnProperty.call(obj, key)
+  ) {
     console.error(`[zerotwo] ${key} already exists on the store:`, obj[key])
     return true
   }
   return false
 }
 
+const createVm = opts => {
+  const silent = Vue.config.silent
+  Vue.config.silent = true
+  const vm = new Vue(opts)
+  Vue.config.silent = silent
+  return vm
+}
+
 export default function zerotwo({ state, actions, views }) {
   return newState => {
+    state = assign({}, state, newState)
     const subscribers = []
     const computed = Object.create(null)
     const methods = Object.create(null)
-    const reactiveStore = {}
 
-    if (newState) {
-      state = assign({}, state, newState)
-    }
-    for (const key in state) {
-      Vue.util.defineReactive(reactiveStore, key, state[key])
-    }
+    const stateVm = createVm({ data: state })
+    const reactiveStore = stateVm.$data
 
     if (views) {
       const boundViews = views(reactiveStore)
@@ -34,13 +41,11 @@ export default function zerotwo({ state, actions, views }) {
         }
       }
     }
-    const silent = Vue.config.silent
-    Vue.config.silent = true
-    const vm = new Vue({
+    const vm = createVm({
       computed,
       methods
     })
-    Vue.config.silent = silent
+    reactiveStore.$vm = vm
 
     for (const key in computed) {
       if (!exists(reactiveStore, key)) {
@@ -70,6 +75,8 @@ export default function zerotwo({ state, actions, views }) {
     }
 
     reactiveStore.subscribe = fn => subscribers.push(fn)
+    reactiveStore.getSnapshot = () =>
+      JSON.parse(JSON.stringify(assign({}, reactiveStore, { $vm: undefined })))
 
     return reactiveStore
   }
