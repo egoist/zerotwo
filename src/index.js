@@ -1,12 +1,17 @@
 import Vue from 'vue'
+import assign from 'nano-assign'
 
 export default function zerotwo({ state, actions, views }) {
-  return () => {
+  return newState => {
     const subscribers = []
     const computed = Object.create(null)
     const methods = Object.create(null)
     const reactiveStore = {
       subscribe: fn => subscribers.push(fn)
+    }
+
+    if (newState) {
+      state = assign({}, state, newState)
     }
     for (const key in state) {
       Vue.util.defineReactive(reactiveStore, key, state[key])

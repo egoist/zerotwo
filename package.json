@@ -59,5 +59,7 @@
     "reactive",
     "store"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "nano-assign": "^1.0.0"
+  }
 }
