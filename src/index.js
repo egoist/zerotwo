@@ -1,14 +1,20 @@
 import Vue from 'vue'
 import assign from 'nano-assign'
 
+const exists = (obj, key) => {
+  if (Object.prototype.hasOwnProperty.call(obj, key)) {
+    console.error(`[zerotwo] ${key} already exists on the store:`, obj[key])
+    return true
+  }
+  return false
+}
+
 export default function zerotwo({ state, actions, views }) {
   return newState => {
     const subscribers = []
     const computed = Object.create(null)
     const methods = Object.create(null)
-    const reactiveStore = {
-      subscribe: fn => subscribers.push(fn)
-    }
+    const reactiveStore = {}
 
     if (newState) {
       state = assign({}, state, newState)
@@ -37,25 +43,33 @@ export default function zerotwo({ state, actions, views }) {
     Vue.config.silent = silent
 
     for (const key in computed) {
-      Object.defineProperty(reactiveStore, key, {
-        get: () => vm[key],
-        enumerable: true
-      })
+      if (!exists(reactiveStore, key)) {
+        Object.defineProperty(reactiveStore, key, {
+          get: () => vm[key],
+          enumerable: true
+        })
+      }
     }
     for (const key in methods) {
-      reactiveStore[key] = methods[key]
+      if (!exists(reactiveStore, key)) {
+        reactiveStore[key] = methods[key]
+      }
     }
 
     if (actions) {
       const boundActions = actions(reactiveStore)
       for (const key in boundActions) {
-        const action = boundActions[key]
-        reactiveStore[key] = (...args) => {
-          action(...args)
-          subscribers.forEach(sub => sub(key, ...args))
+        if (!exists(reactiveStore, key)) {
+          const action = boundActions[key]
+          reactiveStore[key] = (...args) => {
+            action(...args)
+            subscribers.forEach(sub => sub(key, ...args))
+          }
         }
       }
     }
+
+    reactiveStore.subscribe = fn => subscribers.push(fn)
 
     return reactiveStore
   }
