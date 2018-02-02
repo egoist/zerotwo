@@ -24,13 +24,13 @@ const CounterStore = zerotwo({
   state: {
     count: 0
   },
-  actions: store => ({
+  actions: self => ({
     increment() {
-      store.count++
+      self.count++
     },
     incrementAsync() {
       setTimeout(() => {
-        store.increment()
+        self.increment()
       })
     }
   })
@@ -67,6 +67,22 @@ There're two flavors of `views`:
 
 - A `getter` function: like Vue computed properties, the value is cached.
 - A `function`: like Vue methods, you can invoke it with args and value is not cached.
+
+```js
+zerotwo({
+  state: {
+    count: 0
+  },
+  views: self => ({
+    get isCountBig() {
+      return self.count > 100
+    },
+    isCountBiggerThan(num) {
+      return self.count > num
+    }
+  })
+})
+```
 
 ## Contributing
 
