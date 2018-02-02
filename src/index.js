@@ -52,9 +52,7 @@ export default function zerotwo({ state, actions, views }) {
         const action = actions[key]
         reactiveStore[key] = (...args) => {
           action(...args)
-          for (const subscriber of subscribers) {
-            subscriber(key, ...args)
-          }
+          subscribers.forEach(sub => sub(key, ...args))
         }
       }
     }

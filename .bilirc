@@ -1,5 +1,6 @@
 {
   "format": ["cjs", "umd", "es", "umd-min"],
+  "js": "babel",
   "exports": "named",
   "sizeLimit": {
     "umd-min": "900b"
