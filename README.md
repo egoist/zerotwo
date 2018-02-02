@@ -1,9 +1,10 @@
+<p align="center">
+<img src="https://user-images.githubusercontent.com/8784712/35713736-f3bbe048-0803-11e8-9004-3bce870fb189.png" alt="logo">
+</p>
 
-# zerotwo
 
-[![NPM version](https://img.shields.io/npm/v/zerotwo.svg?style=flat)](https://npmjs.com/package/zerotwo) [![NPM downloads](https://img.shields.io/npm/dm/zerotwo.svg?style=flat)](https://npmjs.com/package/zerotwo) [![CircleCI](https://circleci.com/gh/egoist/zerotwo/tree/master.svg?style=shield)](https://circleci.com/gh/egoist/zerotwo/tree/master)  [![donate](https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&style=flat)](https://github.com/egoist/donate) [![chat](https://img.shields.io/badge/chat-on%20discord-7289DA.svg?style=flat)](https://chat.egoist.moe)
+<p align="center"><a href="https://npmjs.com/package/zerotwo"><img src="https://img.shields.io/npm/v/zerotwo.svg?style=flat" alt="NPM version"></a> <a href="https://npmjs.com/package/zerotwo"><img src="https://img.shields.io/npm/dm/zerotwo.svg?style=flat" alt="NPM downloads"></a> <a href="https://circleci.com/gh/egoist/zerotwo/tree/master"><img src="https://circleci.com/gh/egoist/zerotwo/tree/master.svg?style=shield" alt="CircleCI"></a>  <a href="https://github.com/egoist/donate"><img src="https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&amp;style=flat" alt="donate"></a> <a href="https://chat.egoist.moe"><img src="https://img.shields.io/badge/chat-on%20discord-7289DA.svg?style=flat" alt="chat"></a></p>
 
-Partially inspired by mobx-state-tree and unistore.
 
 ## Install
 
