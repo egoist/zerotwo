@@ -59,6 +59,7 @@ __actions__
 
 A function that returns a list of actions, the first argument is the store instance.
 
+
 ## Contributing
 
 1. Fork it!
