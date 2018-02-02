@@ -59,6 +59,14 @@ __actions__
 
 A function that returns a list of actions, the first argument is the store instance.
 
+__views__
+
+Any fact that can be derived from your state is called a `view`.
+
+There're two flavors of `views`:
+
+- A `getter` function: like Vue computed properties, the value is cached.
+- A `function`: like Vue methods, you can invoke it with args and value is not cached.
 
 ## Contributing
 
