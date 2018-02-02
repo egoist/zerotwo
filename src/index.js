@@ -17,10 +17,10 @@ export default function zerotwo({ state, actions, views }) {
       Vue.util.defineReactive(reactiveStore, key, state[key])
     }
 
-    views = views && views(reactiveStore)
     if (views) {
-      for (const key in views) {
-        const desc = Object.getOwnPropertyDescriptor(views, key)
+      const boundViews = views(reactiveStore)
+      for (const key in boundViews) {
+        const desc = Object.getOwnPropertyDescriptor(boundViews, key)
         if (desc.get) {
           computed[key] = desc.get.bind(computed)
         } else if (desc.value) {
@@ -47,9 +47,9 @@ export default function zerotwo({ state, actions, views }) {
     }
 
     if (actions) {
-      actions = actions(reactiveStore)
-      for (const key in actions) {
-        const action = actions[key]
+      const boundActions = actions(reactiveStore)
+      for (const key in boundActions) {
+        const action = boundActions[key]
         reactiveStore[key] = (...args) => {
           action(...args)
           subscribers.forEach(sub => sub(key, ...args))
