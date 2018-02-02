@@ -20,15 +20,43 @@ const createVm = opts => {
   return vm
 }
 
+const shallowClone = obj => {
+  const clone = Object.create(Object.getPrototypeOf(obj))
+
+  const props = Object.getOwnPropertyNames(obj)
+  props.forEach(key => {
+    const desc = Object.getOwnPropertyDescriptor(obj, key)
+    Object.defineProperty(clone, key, desc)
+  })
+
+  return clone
+}
+
 export default function zerotwo({ state, actions, views }) {
   return newState => {
-    state = assign({}, state, newState)
+    const finalState = assign(
+      {},
+      typeof state === 'function' ? state() : state,
+      newState
+    )
     const subscribers = []
     const computed = Object.create(null)
     const methods = Object.create(null)
 
-    const stateVm = createVm({ data: state })
-    const reactiveStore = stateVm.$data
+    const stateVm = createVm({ data: { state: finalState } })
+    const reactiveStore = shallowClone(stateVm.state)
+    reactiveStore.subscribe = fn => subscribers.push(fn)
+    reactiveStore.getSnapshot = () => JSON.parse(JSON.stringify(stateVm.state))
+    reactiveStore.restoreSnapshot = newState => {
+      let finalState = newState || state
+      if (typeof finalState === 'function') {
+        finalState = finalState()
+      }
+      for (const k in finalState) {
+        reactiveStore[k] = finalState[k]
+      }
+    }
+    reactiveStore.$stateVm = stateVm
 
     if (views) {
       const boundViews = views(reactiveStore)
@@ -45,7 +73,7 @@ export default function zerotwo({ state, actions, views }) {
       computed,
       methods
     })
-    reactiveStore.$vm = vm
+    reactiveStore.$viewsVm = vm
 
     for (const key in computed) {
       if (!exists(reactiveStore, key)) {
@@ -73,10 +101,6 @@ export default function zerotwo({ state, actions, views }) {
         }
       }
     }
-
-    reactiveStore.subscribe = fn => subscribers.push(fn)
-    reactiveStore.getSnapshot = () =>
-      JSON.parse(JSON.stringify(assign({}, reactiveStore, { $vm: undefined })))
 
     return reactiveStore
   }

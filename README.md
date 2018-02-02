@@ -70,9 +70,9 @@ There're two flavors of `views`:
 
 ```js
 zerotwo({
-  state: {
+  state: () => ({
     count: 0
-  },
+  }), 
   views: self => ({
     get isCountBig() {
       return self.count > 100

@@ -7,11 +7,18 @@
         <label>
           <input type="checkbox" @change="$store.completeTodo(todo.id)" :value="todo.completed">
           {{ todo.text }}
-          <button @click="$store.removeTodo(todo.id)">remove</button>
+          <button @click="$store.removeTodo(todo.id)">Remove</button>
         </label>
       </li>
     </ul>
+    <div v-if="todos.length > 0">
+      <hr>
+      <button @click="$store.reset">Reset</button>
+    </div>
+    <hr>
     Completed: {{ $store.completeCount }}
+    <hr>
+    <pre>{{ JSON.stringify($store.getSnapshot(), null, 2) }}</pre>
   </div>
 </template>
 
