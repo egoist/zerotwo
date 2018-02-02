@@ -19,7 +19,7 @@ export default function zerotwo({ state, actions, views }) {
         if (desc.get) {
           computed[key] = desc.get.bind(computed)
         } else if (desc.value) {
-          methods[key] = desc.value
+          methods[key] = desc.value.bind(methods)
         }
       }
     }
