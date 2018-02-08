@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import { mount } from 'vue-test-utils'
-import Revue, { createStore, connect, getter, state, mutation } from './'
+import zerotwo, { createStore, connect, getter, state, mutation, action } from './'
 
-Vue.use(Revue)
+Vue.use(zerotwo)
 
 test('it works', async () => {
   const Child = {
     name: 'child',
-    props: ['count', 'doubleCount', 'increment'],
+    props: ['count', 'doubleCount', 'incAsync'],
     render() {
-      return <button onClick={this.increment}>
+      return <button onClick={this.incAsync}>
         {this.count}:{this.doubleCount}
       </button>
     }
@@ -17,7 +17,7 @@ test('it works', async () => {
   const ConnectChild = connect({
     count: state(),
     doubleCount: getter(),
-    increment: mutation()
+    incAsync: action()
   }, Child)
   const wrapper = mount({
     store: createStore({
@@ -26,6 +26,9 @@ test('it works', async () => {
       },
       mutations: {
         increment: state => state.count++
+      },
+      actions: {
+        incAsync: ({ commit }) => commit('increment')
       },
       getters: {
         doubleCount: state => state.count * 2

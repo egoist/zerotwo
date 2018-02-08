@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import Revue, { createStore } from 'revue'
+import zerotwo, { createStore, devtool } from 'zerotwo'
 import App from './App'
 
-Vue.use(Revue)
+Vue.use(zerotwo)
 
 const store = createStore({
   state: {
@@ -17,7 +17,10 @@ const store = createStore({
     doubleCount(state) {
       return state.count * 2
     }
-  }
+  },
+  plugins: [
+    devtool
+  ]
 })
 
 new Vue({

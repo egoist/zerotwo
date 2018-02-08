@@ -1,16 +1,16 @@
 {
-  "name": "revue",
+  "name": "zerotwo",
   "version": "0.0.0",
   "description": "Refined state containter for Vue.js",
   "repository": {
-    "url": "egoist/revue",
+    "url": "egoist/zerotwo",
     "type": "git"
   },
-  "main": "dist/revue.cjs.js",
-  "module": "dist/revue.es.js",
-  "cdn": "dist/revue.js",
-  "unpkg": "dist/revue.js",
-  "jsdelivr": "dist/revue.js",
+  "main": "dist/zerotwo.cjs.js",
+  "module": "dist/zerotwo.es.js",
+  "cdn": "dist/zerotwo.js",
+  "unpkg": "dist/zerotwo.js",
+  "jsdelivr": "dist/zerotwo.js",
   "files": [
     "dist"
   ],
@@ -34,7 +34,7 @@
       "umd",
       "es"
     ],
-    "moduleName": "Revue",
+    "moduleName": "zerotwo",
     "global": {
       "vue": "Vue"
     },

@@ -1,4 +1,4 @@
-import { connect, state, mutation, getter } from 'revue'
+import { connect, state, mutation, getter } from 'zerotwo'
 import App from './App.vue'
 
 export default connect({

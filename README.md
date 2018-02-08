@@ -1,16 +1,17 @@
-# revue
+<p align="center">
+<img src="https://user-images.githubusercontent.com/8784712/35713736-f3bbe048-0803-11e8-9004-3bce870fb189.png" alt="logo">
+</p>
 
-[![NPM version](https://img.shields.io/npm/v/revue.svg?style=flat)](https://npmjs.com/package/revue) [![NPM downloads](https://img.shields.io/npm/dm/revue.svg?style=flat)](https://npmjs.com/package/revue) [![CircleCI](https://circleci.com/gh/egoist/revue/tree/master.svg?style=shield)](https://circleci.com/gh/egoist/revue/tree/master)
 
-Refined state containter for Vue.js
+<p align="center"><a href="https://npmjs.com/package/zerotwo"><img src="https://img.shields.io/npm/v/zerotwo.svg?style=flat" alt="NPM version"></a> <a href="https://npmjs.com/package/zerotwo"><img src="https://img.shields.io/npm/dm/zerotwo.svg?style=flat" alt="NPM downloads"></a> <a href="https://circleci.com/gh/egoist/zerotwo/tree/master"><img src="https://circleci.com/gh/egoist/zerotwo/tree/master.svg?style=shield" alt="CircleCI"></a>  <a href="https://github.com/egoist/donate"><img src="https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&amp;style=flat" alt="donate"></a> <a href="https://chat.egoist.moe"><img src="https://img.shields.io/badge/chat-on%20discord-7289DA.svg?style=flat" alt="chat"></a></p>
 
 ## Install
 
 ```bash
-yarn add revue
+yarn add zerotwo
 ```
 
-CDN: [UNPKG](https://unpkg.com/revue/) | [jsDelivr](https://cdn.jsdelivr.net/npm/revue/) (available as `window.Revue`)
+CDN: [UNPKG](https://unpkg.com/zerotwo/) | [jsDelivr](https://cdn.jsdelivr.net/npm/zerotwo/) (available as `window.zerotwo`)
 
 ## Usage
 
@@ -18,9 +19,9 @@ Create a `store` first:
 
 ```js
 import Vue from 'vue'
-import Revue, { createStore } from 'revue'
+import zerotwo, { createStore } from 'zerotwo'
 
-Vue.use(Revue)
+Vue.use(zerotwo)
 
 const store = createStore({
   state: { count: 0 },
@@ -38,7 +39,7 @@ new Vue({
 Then create your `App`:
 
 ```js
-import { connect, state, mutation } from 'revue'
+import { connect, state, mutation } from 'zerotwo'
 
 // A "stateless" component
 const Counter = {
@@ -59,6 +60,67 @@ const App = {
 
 export default App
 ```
+
+It's almost the same as `Vuex` but here's no `mapState` `mapMutations` etc.. Instead you use `connect` to feed any needed data to your component as props.
+
+### connect
+
+```js
+import { state, getter, action, mutation } from 'zerotwo'
+
+connect({
+  count: state(),
+  doubleCount: getter(),
+  increment: mutation(),
+  incrementAsync: action()
+})
+
+// To connect from a different name
+// Just pass the name to the connect helpers like:
+connect({
+  // state.thatCount -> this.count
+  count: state('thatCount')
+})
+```
+
+### createStore({ state, mutations, actions, getters, plugins })
+
+#### state
+
+Type: `Function | object`
+
+Initial state.
+
+#### mutations
+
+Type: `{ [type: string]: Function }`
+
+Mutation handlers.
+
+#### actions
+
+Type: `{ [type: string]: Function }`
+
+Action handlers.
+
+#### getters
+
+Type: `{ [key: string]: Function }`
+
+Register getters on the store. The getter function receives the following arguments:
+
+```js
+state,
+getters
+```
+
+#### plugins
+
+Type: `Array<Function>`
+
+An array of plugin functions to be applied to the store. The plugin simply receives the store as the only argument and can either listen to mutations (for outbound data persistence, logging, or debugging) or dispatch mutations (for inbound data e.g. websockets or observables).
+
+#### actions
 
 ## License
 

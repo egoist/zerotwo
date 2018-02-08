@@ -1,7 +1,12 @@
 import Vue from 'vue'
 import assign from 'nano-assign'
 
-export default function Revue(Vue) {
+const unifyObject = (type, payload) => {
+  if (typeof type === 'object') return type
+  return { type, payload }
+}
+
+export default function zerotwo(Vue) {
   Vue.mixin({
     beforeCreate() {
       const store = this.$options.store || (this.$parent && this.$parent.$store)
@@ -12,7 +17,7 @@ export default function Revue(Vue) {
   })
 }
 
-export const createStore = ({ state, mutations, getters }) => {
+export const createStore = ({ state, mutations, getters, actions, plugins }) => {
   const getterKeys = getters && Object.keys(getters)
   const wrappedGetters = {}
   if (getterKeys) {
@@ -29,24 +34,56 @@ export const createStore = ({ state, mutations, getters }) => {
     },
     computed: wrappedGetters
   })
+
+  const subscribers = []
   const store = {
     vm,
+    committing: false,
     getters: {},
     get state() {
       return vm._data.$$state
     },
     set state(v) {
       if (process.env.NODE_ENV !== 'production') {
-        console.error('Please do not directly mutation store state.')
+        throw new Error(
+          '[zerotwo] Please do not directly mutation store state, use `store.replaceState(newState) instead!`'
+        )
       }
     },
-    commit(name, payload) {
-      const mutation = mutations[name]
-      return mutation(vm._data.$$state, payload)
+    commit(_type, _payload) {
+      const mutation = unifyObject(_type, _payload)
+      const fn = mutations[mutation.type]
+      if (process.env.NODE_ENV !== 'production' && !fn) {
+        throw new Error(`[zerotwo] Unknown mutation type: ${mutation.type}`)
+      }
+      this.withCommit(() => fn(vm._data.$$state, mutation.payload))
+      for (const sub of subscribers) {
+        sub(mutation, this.state)
+      }
     },
-    dispatch(name, payload) {
-      const action = actions[name]
-      return Promise.resolve(action(this, payload))
+    dispatch(_type, _payload) {
+      const action = unifyObject(_type, _payload)
+      const fn = actions[action.type]
+      if (process.env.NODE_ENV !== 'production' && !fn) {
+        throw new Error(`[zerotwo] Unknown action type: ${action.type}`)
+      }
+      return Promise.resolve(fn({
+        commit: this.commit.bind(this),
+        dispatch: this.dispatch.bind(this),
+        state: this.state
+      }, action.payload))
+    },
+    subscribe(sub) {
+      subscribers.push(sub)
+    },
+    replaceState(state) {
+      this.withCommit(() => (vm._data.$$state = state))
+    },
+    withCommit(fn) {
+      const committing = this.committing
+      this.committing = true
+      fn()
+      this.committing = committing
     }
   }
 
@@ -56,6 +93,29 @@ export const createStore = ({ state, mutations, getters }) => {
         get: () => vm[key],
         enumerable: true
       })
+    }
+  }
+
+  // Strict mode
+  if (process.env.NODE_ENV !== 'production') {
+    vm.$watch(
+      function() {
+        return this._data.$$state
+      },
+      () => {
+        if (!store.committing) {
+          throw new Error(
+            `[zertwo] Do not mutate store state outside mutation handlers.`
+          )
+        }
+      },
+      { deep: true, sync: true }
+    )
+  }
+
+  if (plugins) {
+    for (const plugin of plugins) {
+      plugin(store)
     }
   }
 
@@ -95,7 +155,7 @@ export const connect = (obj = {}, Comp) => {
     render(h, ctx) {
       const store = ctx.parent.$store
       if (process.env.NODE_ENV !== 'production' && !store) {
-        console.error('You need to `Vue.use(Revue)` first!')
+        console.error('You need to `Vue.use(zerotwo)` first!')
       }
       const props = assign({}, ctx.props, getPropsFromStore(store, obj))
       return h(
@@ -129,3 +189,5 @@ export const getter = name => ({
   type: GETTER,
   name
 })
+
+export { default as devtool } from './devtool'

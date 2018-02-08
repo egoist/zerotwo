@@ -7,7 +7,7 @@ module.exports = {
   webpack: {
     resolve: {
       alias: {
-        revue$: path.resolve('src/index.js')
+        zerotwo$: path.resolve('src/index.js')
       }
     }
   }
