@@ -1,0 +1,57 @@
+{
+  "name": "revue",
+  "version": "0.0.0",
+  "description": "Refined state containter for Vue.js",
+  "repository": {
+    "url": "egoist/revue",
+    "type": "git"
+  },
+  "main": "dist/revue.cjs.js",
+  "module": "dist/revue.es.js",
+  "cdn": "dist/revue.js",
+  "unpkg": "dist/revue.js",
+  "jsdelivr": "dist/revue.js",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "prepublishOnly": "npm test && npm run build",
+    "lint": "eslint . --ext .js --ext .vue",
+    "test": "npm run lint && tyu",
+    "build": "bili",
+    "example": "poi",
+    "build:example": "poi build"
+  },
+  "author": {
+    "name": "egoist",
+    "email": "0x142857@gmail.com"
+  },
+  "license": "MIT",
+  "bili": {
+    "format": [
+      "cjs",
+      "umd",
+      "es"
+    ],
+    "moduleName": "Revue",
+    "global": {
+      "vue": "Vue"
+    },
+    "exports": "named",
+    "buble": {
+      "transforms": {
+        "dangerousForOf": true
+      }
+    }
+  },
+  "devDependencies": {
+    "bili": "^2.2.6",
+    "poi": "^9.6.13",
+    "tyu": "^1.0.0",
+    "vue-test-utils": "^1.0.0-beta.9"
+  },
+  "dependencies": {
+    "nano-assign": "^1.0.0"
+  }
+}
