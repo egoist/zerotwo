@@ -46,7 +46,7 @@ import { connect, state, mutation } from 'zerotwo'
 // A "stateless" component
 const Counter = {
   props: ['count', 'increment'],
-  template: `<button @click="incremnt">{{ count }}</button>`
+  template: `<button @click="increment">{{ count }}</button>`
 }
 
 // Connect needed state and mutations to `Counter`
