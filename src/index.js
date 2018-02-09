@@ -148,6 +148,8 @@ const getPropsFromStore = (store, obj) => {
 }
 
 export const connect = (obj = {}, Comp) => {
+  if (!Comp) return Comp => connect(obj, Comp)
+
   return {
     functional: true,
     name: `connect-${Comp.name || 'unknown'}`,
