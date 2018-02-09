@@ -19,6 +19,7 @@
     "prepublishOnly": "npm test && npm run build",
     "lint": "xo",
     "test": "npm run lint && tyu",
+    "test:cov": "npm run lint && tyu -- --coverage",
     "build": "bili",
     "example": "poi",
     "build:example": "poi build"
