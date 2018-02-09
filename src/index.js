@@ -28,12 +28,15 @@ export const createStore = ({ state, mutations, getters, actions, plugins }) => 
     }
   }
 
+  const silent = Vue.config.silent
+  Vue.config.silent = true
   const vm = new Vue({
     data: {
       $$state: state
     },
     computed: wrappedGetters
   })
+  Vue.config.silent = silent
 
   const subscribers = []
   const store = {
