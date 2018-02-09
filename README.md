@@ -120,7 +120,13 @@ Type: `Array<Function>`
 
 An array of plugin functions to be applied to the store. The plugin simply receives the store as the only argument and can either listen to mutations (for outbound data persistence, logging, or debugging) or dispatch mutations (for inbound data e.g. websockets or observables).
 
-#### actions
+### store
+
+#### store.commit(mutation, payload)
+
+#### store.dispatch(action, payload)
+
+#### store.replaceState(newState)
 
 ## License
 
