@@ -30,7 +30,7 @@
         <li v-for="(val, key) in filters" :key="key">
           <a :href="'#/' + key"
             :class="{ selected: visibility === key }"
-            @click="visibility = key">{{ key | capitalize }}</a>
+            @click="() => setVisibility(key)">{{ key | capitalize }}</a>
         </li>
       </ul>
       <button class="clear-completed"
@@ -79,6 +79,9 @@ export default {
         this.addTodo({ text })
       }
       e.target.value = ''
+    },
+    setVisibility(visibility) {
+      this.visibility = visibility
     }
   },
   filters: {
