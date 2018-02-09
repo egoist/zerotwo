@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import { mount } from 'vue-test-utils'
-import zerotwo, { createStore, connect, getter, state, mutation, action } from './'
+import { mount } from '@vue/test-utils'
+import zerotwo, { createStore, connect, getter, state, action } from './'
 
 Vue.use(zerotwo)
 
@@ -36,7 +36,7 @@ test('it works', async () => {
     }),
     render() {
       return <ConnectChild />
-    },
+    }
   })
   expect(wrapper.text()).toBe('0:0')
   wrapper.find('button').trigger('click')

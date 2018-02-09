@@ -22,7 +22,7 @@ export const createStore = ({ state, mutations, getters, actions, plugins }) => 
   const wrappedGetters = {}
   if (getterKeys) {
     for (const key of getterKeys) {
-      wrappedGetters[key] = function() {
+      wrappedGetters[key] = function () {
         return getters[key](this._data.$$state, wrappedGetters)
       }
     }
@@ -77,7 +77,9 @@ export const createStore = ({ state, mutations, getters, actions, plugins }) => 
       subscribers.push(sub)
     },
     replaceState(state) {
-      this.withCommit(() => (vm._data.$$state = state))
+      this.withCommit(() => {
+        vm._data.$$state = state
+      })
     },
     withCommit(fn) {
       const committing = this.committing
@@ -99,7 +101,7 @@ export const createStore = ({ state, mutations, getters, actions, plugins }) => 
   // Strict mode
   if (process.env.NODE_ENV !== 'production') {
     vm.$watch(
-      function() {
+      function () {
         return this._data.$$state
       },
       () => {
