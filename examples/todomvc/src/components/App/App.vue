@@ -55,7 +55,7 @@ const filters = {
 
 export default {
   components: { Todo },
-  props: ['toggleAll', 'clearCompleted', 'addTodo'],
+  props: ['toggleAll', 'clearCompleted', 'addTodo', 'todos'],
   data() {
     return {
       visibility: 'all',
@@ -63,9 +63,6 @@ export default {
     }
   },
   computed: {
-    todos() {
-      return this.$store.state.todos
-    },
     allChecked() {
       return this.todos.every(todo => todo.done)
     },
