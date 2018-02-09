@@ -33,7 +33,8 @@
     "format": [
       "cjs",
       "umd",
-      "es"
+      "es",
+      "umd-min"
     ],
     "moduleName": "zerotwo",
     "global": {
