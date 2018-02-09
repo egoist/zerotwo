@@ -1,6 +1,6 @@
 {
   "name": "zerotwo",
-  "version": "0.0.0",
+  "version": "0.3.0",
   "description": "Refined state containter for Vue.js",
   "repository": {
     "url": "egoist/zerotwo",
