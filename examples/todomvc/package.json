@@ -4,6 +4,7 @@
     "build": "poi build"
   },
   "dependencies": {
+    "navigo": "^7.1.1",
     "todomvc-app-css": "latest",
     "vue": "^2.5.13",
     "zerotwo": "latest"

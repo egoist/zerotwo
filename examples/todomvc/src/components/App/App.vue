@@ -28,9 +28,9 @@
       </span>
       <ul class="filters">
         <li v-for="(val, key) in filters" :key="key">
-          <a :href="'#/' + key"
-            :class="{ selected: visibility === key }"
-            @click="() => setVisibility(key)">{{ key | capitalize }}</a>
+          <a :href="'#/' + key" :class="{ selected: visibility === key }">
+            {{ key | capitalize }}
+          </a>
         </li>
       </ul>
       <button class="clear-completed"
@@ -44,6 +44,7 @@
 
 <script>
 import 'todomvc-app-css/index.css'
+import Router from 'navigo'
 import Todo from '../Todo'
 
 const filters = {
@@ -72,6 +73,12 @@ export default {
       return this.todos.filter(todo => !todo.done).length
     }
   },
+  mounted() {
+    const router = new Router('', true)
+    router.on('/:visibility', ({ visibility }) => {
+      this.visibility = visibility
+    }).resolve()
+  },
   methods: {
     handleAddTodo(e) {
       var text = e.target.value
@@ -79,9 +86,6 @@ export default {
         this.addTodo({ text })
       }
       e.target.value = ''
-    },
-    setVisibility(visibility) {
-      this.visibility = visibility
     }
   },
   filters: {

@@ -3751,6 +3751,10 @@ nanomatch@^1.2.5:
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
 
+navigo@^7.1.1:
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/navigo/-/navigo-7.1.1.tgz#c7e3eb4398125769f3bc6b7c924d8139da466038"
+
 ncname@1.0.x:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/ncname/-/ncname-1.0.0.tgz#5b57ad18b1ca092864ef62b0b1ed8194f383b71c"
@@ -6191,8 +6195,8 @@ yarn-global@^1.1.0:
   dependencies:
     user-home "^2.0.0"
 
-zerotwo@^0.3.2:
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/zerotwo/-/zerotwo-0.3.2.tgz#8f9a551aa0b32d7ec56131c0ea515f3738d72fa7"
+zerotwo@latest:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/zerotwo/-/zerotwo-0.3.3.tgz#ea3770973aa0e269d6eace37c10559e0a9bac99a"
   dependencies:
     nano-assign "^1.0.0"
