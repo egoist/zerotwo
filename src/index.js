@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import assign from 'nano-assign'
+import devtool from './devtool'
 
 const unifyObject = (type, payload) => {
   if (typeof type === 'object') return type
@@ -118,6 +119,10 @@ export const createStore = ({ state, mutations, getters, actions, plugins }) => 
     )
   }
 
+  if (Vue.config.devtools) {
+    devtool(store)
+  }
+
   if (plugins) {
     for (const plugin of plugins) {
       plugin(store)
@@ -196,5 +201,3 @@ export const getter = name => ({
   type: GETTER,
   name
 })
-
-export { default as devtool } from './devtool'

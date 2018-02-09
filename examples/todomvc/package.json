@@ -6,7 +6,7 @@
   "dependencies": {
     "todomvc-app-css": "latest",
     "vue": "^2.5.13",
-    "zerotwo": "^0.3.2"
+    "zerotwo": "latest"
   },
   "devDependencies": {
     "poi": "^9.6.13"
