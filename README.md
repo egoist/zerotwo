@@ -15,6 +15,8 @@ CDN: [UNPKG](https://unpkg.com/zerotwo/) | [jsDelivr](https://cdn.jsdelivr.net/n
 
 ## Usage
 
+[![Edit egoist/zerotwo: todomvc](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/egoist/zerotwo/tree/master/examples/todomvc)
+
 Create a `store` first:
 
 ```js

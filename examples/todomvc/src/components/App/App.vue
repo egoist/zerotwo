@@ -1,5 +1,3 @@
-<style src="todomvc-app-css/index.css"></style>
-
 <template>
   <section class="todoapp">
     <!-- header -->
@@ -45,6 +43,7 @@
 </template>
 
 <script>
+import 'todomvc-app-css/index.css'
 import Todo from '../Todo'
 
 const filters = {
