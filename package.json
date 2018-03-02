@@ -40,6 +40,7 @@
     "global": {
       "vue": "Vue"
     },
+    "js": "buble",
     "exports": "named",
     "buble": {
       "transforms": {
@@ -49,7 +50,7 @@
   },
   "devDependencies": {
     "@vue/test-utils": "^1.0.0-beta.11",
-    "bili": "^2.2.6",
+    "bili": "^3.0.2",
     "eslint-config-rem": "^4.0.0",
     "eslint-plugin-vue": "^4.2.2",
     "poi": "^9.6.13",
