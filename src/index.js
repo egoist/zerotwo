@@ -181,7 +181,7 @@ export const connect = (obj = {}, Comp) => {
     render(h, ctx) {
       const store = ctx.parent.$store
       if (process.env.NODE_ENV !== 'production' && !store) {
-        console.error('You need to `Vue.use(zerotwo)` first!')
+        console.error('Make sure you have called `Vue.use(zerotwo)` and passed `store` in component options!')
       }
       const props = assign({}, ctx.props, getPropsFromStore(store, obj))
       return h(
