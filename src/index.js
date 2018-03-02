@@ -18,7 +18,13 @@ export default function zerotwo(Vue) {
   })
 }
 
-export const createStore = ({ state, mutations, getters, actions, plugins }) => {
+export const createStore = ({
+  state,
+  mutations,
+  getters,
+  actions,
+  plugins
+}) => {
   const getterKeys = getters && Object.keys(getters)
   const wrappedGetters = {}
   if (getterKeys) {
@@ -71,11 +77,16 @@ export const createStore = ({ state, mutations, getters, actions, plugins }) => 
       if (process.env.NODE_ENV !== 'production' && !fn) {
         throw new Error(`[zerotwo] Unknown action type: ${action.type}`)
       }
-      return Promise.resolve(fn({
-        commit: this.commit.bind(this),
-        dispatch: this.dispatch.bind(this),
-        state: this.state
-      }, action.payload))
+      return Promise.resolve(
+        fn(
+          {
+            commit: this.commit.bind(this),
+            dispatch: this.dispatch.bind(this),
+            state: this.state
+          },
+          action.payload
+        )
+      )
     },
     subscribe(sub) {
       subscribers.push(sub)
@@ -150,7 +161,10 @@ const getPropsFromStore = (store, obj) => {
     } else if (def.type === ACTION) {
       value = payload => store.dispatch(name, payload)
     } else if (def.type === GETTER) {
-      value = store.getters[name]
+      value =
+        typeof name === 'function' ?
+          () => name(store.state, store.getters) :
+          store.getters[name]
     }
     res[name] = value
     return res
@@ -174,6 +188,7 @@ export const connect = (obj = {}, Comp) => {
         Comp,
         {
           data: ctx.data,
+          on: ctx.listeners,
           props
         },
         ctx.children
