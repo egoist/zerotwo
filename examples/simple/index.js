@@ -14,7 +14,8 @@ class MyStore {
 
   @computed
   doubleCount() {
-    return Date.now()
+    console.log(this)
+    return this.state.count * 2
   }
 
   random() {

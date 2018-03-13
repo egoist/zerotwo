@@ -22,7 +22,8 @@ function store(Store) {
     Vue.config.silent = true
     this._vm = new Vue({
       data: this.state,
-      computed: this._computed
+      computed: this._computed,
+      __store: this
     })
     Vue.config.silent = silent
     return this
@@ -32,7 +33,9 @@ function store(Store) {
 function computed(target, key, desc) {
   target._computed = target._computed || {}
   Object.defineProperty(target._computed, key, {
-    value: desc.value,
+    value() {
+      return desc.value.call(this.$options.__store)
+    },
     configurable: true,
     enumerable: true
   })
