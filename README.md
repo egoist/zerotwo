@@ -16,7 +16,7 @@ CDN: [UNPKG](https://unpkg.com/zerotwo/) | [jsDelivr](https://cdn.jsdelivr.net/n
 
 [![Edit egoist/zerotwo: todomvc](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/egoist/zerotwo/tree/master/examples/todomvc)
 
-Create a `store` first:
+Use the `zerotwo` plugin first:
 
 ```js
 import Vue from 'vue'
@@ -32,7 +32,7 @@ new Vue({
 })
 ```
 
-Then create your `App.vue`:
+Then create and use the `store` in `App.vue`:
 
 ```vue
 <template>
