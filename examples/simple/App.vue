@@ -1,15 +1,9 @@
 <template>
   <div id="app">
-    <button @click="$store.increment">
-      {{ $store.state.count }} and {{ $store.doubleCount }}
-    </button>
+    <store-consumer>
+      <button slot-scope="store" @click="store.increment">
+        {{ store.state.count }} and {{ store.doubleCount }}
+      </button>
+    </store-consumer>
   </div>
 </template>
-
-<script>
-import store from './store'
-
-export default {
-  store
-}
-</script>

@@ -1,16 +1,21 @@
 import Vue from 'vue'
+import StoreConsumer from './StoreConsumer'
+import StoreProvider from './StoreProvider'
 
 const getStoreFromOption = Store => new Store()._init()
 
 function zerotwo(Vue) {
   Vue.mixin({
     beforeCreate() {
-      const store = this.$options.store && getStoreFromOption(this.$options.store)
+      const store = this.$options.store ? getStoreFromOption(this.$options.store) : (this.$parent && this.$parent.$store)
       if (store) {
         this.$store = store
       }
     }
   })
+
+  Vue.component(StoreConsumer.name, StoreConsumer)
+  Vue.component(StoreProvider.name, StoreProvider)
 }
 
 function store(Store) {
@@ -48,8 +53,12 @@ function computed(target, key, desc) {
   }
 }
 
+
+
 export {
   zerotwo,
   store,
-  computed
+  computed,
+  StoreProvider,
+  StoreConsumer
 }

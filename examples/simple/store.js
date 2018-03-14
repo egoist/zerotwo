@@ -15,10 +15,6 @@ class MyStore {
   get doubleCount() {
     return this.state.count * 2
   }
-
-  random() {
-    this.doubleCount
-  }
 }
 
 export default MyStore
