@@ -54,6 +54,7 @@ function computed(target, key, desc) {
 }
 
 function decorate(Store, obj) {
+  reactive(Store)
   // eslint-disable-next-line guard-for-in
   for (const prop in obj) {
     const decorator = obj[prop]

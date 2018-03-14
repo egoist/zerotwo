@@ -3,7 +3,6 @@ import { zerotwo, reactive, computed, decorate } from '../../src'
 
 Vue.use(zerotwo)
 
-@reactive
 class MyStore {
   state = {
     count: 0
