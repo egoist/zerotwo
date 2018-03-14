@@ -1,19 +1,16 @@
 import Vue from 'vue'
-import StoreConsumer from './StoreConsumer'
 
 const getStoreFromOption = Store => new Store()._init()
 
 function zerotwo(Vue) {
   Vue.mixin({
     beforeCreate() {
-      const store = this.$options.store ? getStoreFromOption(this.$options.store) : (this.$parent && this.$parent.$store)
+      const store = this.$options.store && getStoreFromOption(this.$options.store)
       if (store) {
         this.$store = store
       }
     }
   })
-
-  Vue.component(StoreConsumer.name, StoreConsumer)
 }
 
 function store(Store) {
@@ -32,9 +29,12 @@ function store(Store) {
 
 function computed(target, key, desc) {
   target._computed = target._computed || {}
+  if (process.env.NODE_ENV !== 'production' && !desc.get) {
+    throw new Error(`Computed value for ${key} must be a getter! i.e. @computed get ${key}() {}`)
+  }
   Object.defineProperty(target._computed, key, {
     value() {
-      return desc.value.call(this.$options.__store)
+      return desc.get.call(this.$options.__store)
     },
     configurable: true,
     enumerable: true
@@ -48,9 +48,8 @@ function computed(target, key, desc) {
   }
 }
 
-export default zerotwo
 export {
+  zerotwo,
   store,
-  StoreConsumer,
   computed
 }
