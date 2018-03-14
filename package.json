@@ -77,10 +77,5 @@
     "env": {
       "jest": true
     }
-  },
-  "babel": {
-    "presets": [
-      "poi"
-    ]
   }
 }
