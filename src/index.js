@@ -53,10 +53,19 @@ function computed(target, key, desc) {
   }
 }
 
+function decorate(Store, obj) {
+  // eslint-disable-next-line guard-for-in
+  for (const prop in obj) {
+    const decorator = obj[prop]
+    decorator(Store.prototype, prop, Object.getOwnPropertyDescriptor(Store.prototype, prop))
+  }
+}
+
 export {
   zerotwo,
   reactive,
   computed,
   StoreProvider,
-  StoreConsumer
+  StoreConsumer,
+  decorate
 }

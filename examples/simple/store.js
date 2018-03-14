@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { zerotwo, reactive, computed } from '../../src'
+import { zerotwo, reactive, computed, decorate } from '../../src'
 
 Vue.use(zerotwo)
 
@@ -11,10 +11,13 @@ class MyStore {
 
   increment = () => this.state.count++
 
-  @computed
   get doubleCount() {
     return this.state.count * 2
   }
 }
+
+decorate(MyStore, {
+  doubleCount: computed
+})
 
 export default MyStore
