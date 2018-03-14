@@ -18,11 +18,11 @@ test('it works', async () => {
 
   const wrapper = mount({
     store: Store,
-    render() {
-      return <button onClick={this.$store.increment}>
-        {this.$store.state.count}:{this.$store.doubleCount}
-      </button>
-    }
+    template: `
+    <button @click="$store.increment">
+      {{$store.state.count}}:{{$store.doubleCount}}
+    </button>
+    `
   })
   expect(wrapper.text()).toBe('0:0')
   wrapper.find('button').trigger('click')
