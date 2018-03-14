@@ -1,14 +1,21 @@
 import Vue from 'vue'
-import { zerotwo, reactive, computed, decorate } from '../../src'
+import { zerotwo, Store, computed, decorate, action } from '../../src'
 
 Vue.use(zerotwo)
 
-class MyStore {
+class MyStore extends Store {
   state = {
     count: 0
   }
 
-  increment = () => this.state.count++
+  constructor() {
+    super()
+    this.subscribe((state, action, payload) => {
+      console.log(state, action, payload)
+    })
+  }
+
+  @action increment = () => this.state.count++
 
   get doubleCount() {
     return this.state.count * 2

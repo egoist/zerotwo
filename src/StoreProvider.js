@@ -8,7 +8,7 @@ const Provider = {
   },
   provide() {
     return {
-      storeInjects: this.inject.map(Store => new Store()._init())
+      storeInjects: this.inject.map(Store => new Store().init())
     }
   },
   render() {

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import StoreConsumer from './StoreConsumer'
 import StoreProvider from './StoreProvider'
 
-const getStoreFromOption = Store => new Store()._init()
+const getStoreFromOption = Store => new Store().init()
 
 function zerotwo(Vue) {
   Vue.mixin({
@@ -18,8 +18,17 @@ function zerotwo(Vue) {
   Vue.component(StoreProvider.name, StoreProvider)
 }
 
-function reactive(Store) {
-  Store.prototype._init = function () {
+class Store {
+  constructor() {
+    this._listeners = []
+  }
+
+  subscribe(fn) {
+    this._listeners.push(fn)
+    return this
+  }
+
+  init() {
     const silent = Vue.config.silent
     Vue.config.silent = true
     this._vm = new Vue({
@@ -29,6 +38,30 @@ function reactive(Store) {
     })
     Vue.config.silent = silent
     return this
+  }
+
+  emit(...args) {
+    this._listeners.forEach(fn => fn(this.state, ...args))
+    return this
+  }
+}
+
+// TODO: we should only allow calling class method that is an action
+function action(target, key, desc) {
+  return {
+    configurable: true,
+    enumerable: true,
+    get() {
+      const value = (...payload) => {
+        this.emit(key, ...payload)
+        const fn = desc.value || desc.initializer.call(this)
+        return fn(...payload)
+      }
+      return value
+    },
+    set() {
+      throw new Error(`You should not assign new value to ${key}`)
+    }
   }
 }
 
@@ -54,7 +87,6 @@ function computed(target, key, desc) {
 }
 
 function decorate(Store, obj) {
-  reactive(Store)
   // eslint-disable-next-line guard-for-in
   for (const prop in obj) {
     const decorator = obj[prop]
@@ -65,9 +97,10 @@ function decorate(Store, obj) {
 
 export {
   zerotwo,
-  reactive,
   computed,
   StoreProvider,
   StoreConsumer,
+  Store,
+  action,
   decorate
 }

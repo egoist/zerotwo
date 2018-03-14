@@ -20,7 +20,7 @@ Use the `zerotwo` plugin first:
 
 ```js
 import Vue from 'vue'
-import { zerotwo, store } from 'zerotwo'
+import { zerotwo } from 'zerotwo'
 import App from './App.vue'
 
 // This allows injecting `store` 
@@ -44,15 +44,16 @@ Then create and use the `store` in `App.vue`:
 </template>
 
 <script>
-import { store, computed } from 'zerotwo'
+import { Store, computed, action } from 'zerotwo'
 
-@store
-class CounterStore {
+class CounterStore extends Store {
   // this.state is automatically converted to reactive data
   // Just like `data` in Vue component
   state = { count: 0 }
 
-  increment = () => this.state.count++
+  // Tell us it's an action so we can properly track it
+  // Mainly for better developer experience
+  @action increment = () => this.state.count++
 
   // `computed getter`
   // Just like `computed` in Vue component
