@@ -57,7 +57,8 @@ function decorate(Store, obj) {
   // eslint-disable-next-line guard-for-in
   for (const prop in obj) {
     const decorator = obj[prop]
-    decorator(Store.prototype, prop, Object.getOwnPropertyDescriptor(Store.prototype, prop))
+    const desc = Object.getOwnPropertyDescriptor(Store.prototype, prop)
+    Object.defineProperty(Store.prototype, prop, decorator(Store.prototype, prop, desc) || desc)
   }
 }
 
