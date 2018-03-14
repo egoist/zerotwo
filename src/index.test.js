@@ -1,42 +1,27 @@
 import Vue from 'vue'
 import { mount } from '@vue/test-utils'
-import zerotwo, { createStore, connect, getter, state, action } from './'
+import { zerotwo, Store, action, computed } from './'
 
 Vue.use(zerotwo)
 
 test('it works', async () => {
-  const Child = {
-    name: 'child',
-    props: ['count', 'doubleCount', 'incAsync'],
-    render() {
-      return <button onClick={this.incAsync}>
-        {this.count}:{this.doubleCount}
-      </button>
+  class MyStore extends Store {
+    state = { count: 0 }
+
+    @action increment = () => this.state.count++
+
+    @computed get doubleCount() {
+      return this.state.count * 2
     }
   }
-  const ConnectChild = connect({
-    count: state(),
-    doubleCount: getter(),
-    incAsync: action()
-  }, Child)
+
   const wrapper = mount({
-    store: createStore({
-      state: {
-        count: 0
-      },
-      mutations: {
-        increment: state => state.count++
-      },
-      actions: {
-        incAsync: ({ commit }) => commit('increment')
-      },
-      getters: {
-        doubleCount: state => state.count * 2
-      }
-    }),
-    render() {
-      return <ConnectChild />
-    }
+    store: MyStore,
+    template: `
+    <button @click="$store.increment">
+      {{$store.state.count}}:{{$store.doubleCount}}
+    </button>
+    `
   })
   expect(wrapper.text()).toBe('0:0')
   wrapper.find('button').trigger('click')
