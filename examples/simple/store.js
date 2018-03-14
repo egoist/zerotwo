@@ -1,9 +1,9 @@
 import Vue from 'vue'
-import { zerotwo, store, computed } from '../../src'
+import { zerotwo, reactive, computed } from '../../src'
 
 Vue.use(zerotwo)
 
-@store
+@reactive
 class MyStore {
   state = {
     count: 0

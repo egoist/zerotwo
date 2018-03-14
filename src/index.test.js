@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import { mount } from '@vue/test-utils'
-import { zerotwo, store, computed } from './'
+import { zerotwo, reactive, computed } from './'
 
 Vue.use(zerotwo)
 
 test('it works', async () => {
-  @store
+  @reactive
   class Store {
     state = { count: 0 }
 

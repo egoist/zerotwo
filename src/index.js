@@ -18,7 +18,7 @@ function zerotwo(Vue) {
   Vue.component(StoreProvider.name, StoreProvider)
 }
 
-function store(Store) {
+function reactive(Store) {
   Store.prototype._init = function () {
     const silent = Vue.config.silent
     Vue.config.silent = true
@@ -55,7 +55,7 @@ function computed(target, key, desc) {
 
 export {
   zerotwo,
-  store,
+  reactive,
   computed,
   StoreProvider,
   StoreConsumer
