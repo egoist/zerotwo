@@ -17,7 +17,7 @@
   "sideEffects": false,
   "scripts": {
     "prepublishOnly": "npm test && npm run build",
-    "lint": "xo",
+    "lint": "eslint src/*.js",
     "test": "npm run lint && tyu",
     "test:cov": "npm run lint && tyu -- --coverage",
     "build": "bili",
@@ -50,38 +50,37 @@
   },
   "devDependencies": {
     "@vue/test-utils": "^1.0.0-beta.11",
+    "babel-eslint": "^8.2.2",
     "bili": "^3.0.2",
+    "eslint": "^4.18.2",
     "eslint-config-rem": "^4.0.0",
+    "eslint-config-xo": "^0.20.1",
     "eslint-plugin-vue": "^4.2.2",
     "poi": "^9.6.13",
     "tyu": "^1.0.0",
-    "vue": "^2.5.13",
-    "xo": "^0.18.2"
+    "vue": "^2.5.13"
   },
   "dependencies": {
     "nano-assign": "^1.0.0"
   },
-  "xo": {
+  "eslintConfig": {
+    "parserOptions": {
+      "parser": "babel-eslint",
+      "ecmaVersion": 2017,
+      "sourceType": "module"
+    },
     "extends": [
+      "xo",
       "rem",
       "plugin:vue/essential"
     ],
-    "ignores": [
-      "examples/**"
-    ],
-    "envs": [
-      "jest"
-    ],
-    "overrides": [
-      {
-        "files": [
-          "**/*"
-        ],
-        "parserOptions": {
-          "ecmaVersion": 2018,
-          "sourceType": "module"
-        }
-      }
+    "env": {
+      "jest": true
+    }
+  },
+  "babel": {
+    "presets": [
+      "poi"
     ]
   }
 }
